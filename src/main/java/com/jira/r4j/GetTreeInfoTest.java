@@ -25,7 +25,7 @@ import org.apache.commons.httpclient.methods.GetMethod;
 
 
 
-public class GetTreeInfo {
+public class GetTreeInfoTest {
 	
 	public static final String CORP_JIRA_QA = "https://greenhopper-qa.app.alcatel-lucent.com";
 	public static final String CORP_JIRA_DEV = "https://greenhopper-dev.app.alcatel-lucent.com";
