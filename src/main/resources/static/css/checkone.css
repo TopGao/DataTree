@@ -1,0 +1,35 @@
+@CHARSET "UTF-8";
+.checktextcolor{
+	color: red;
+}
+.unchecktextcolor{
+	color: black;
+}
+.checkoncolor{
+	background-color: #F3E058;
+}
+.checkoffcolor{
+	background-color: #B7B3B6;
+}
+.chkone{
+	position: absolute;
+	cursor: pointer;
+	/* height:40px;
+	width: 80px;
+	border-radius:50px; */
+	/* border: 1px red solid; */
+}
+.text{
+	position:relative;
+	/* top:-20x; */
+/* 	border: 1px solid red; */
+}
+.chkonein{
+	position: absolute;
+	left:0px;
+	border-radius:50px;
+	/* width: 40px;
+	height: 38px; */
+	border: 1px solid #ABA6A6;
+	background-color: #09A6F1;
+}

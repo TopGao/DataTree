@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jira.dao.GradeMapper">
+	<resultMap id="gradeMapper" type="com.jira.po.Grade">
+		<id property="gId" column="gid" />
+		<result property="gName" column="gname" />
+		<result property="gState" column="gstate" />
+		<result property="gDate" column="gdate" />
+	</resultMap>
+	<select id="getGrade" parameterType="com.jira.po.Grade"
+		resultMap="gradeMapper">
+		select * from grade order by gid
+	</select>
+	<select id="getGradeByState" parameterType="com.jira.po.Grade"
+		resultMap="gradeMapper">
+		select * from grade
+		<if test="gState!=0">
+			where gstate=#{gState}
+		</if>
+		order by gid
+	</select>
+	<select id="delet" parameterType="com.jira.po.Grade" resultMap="gradeMapper">
+		update grade set gstate=2 where gid=#{gId}
+	</select>
+	<select id="update" parameterType="com.jira.po.Grade" resultMap="gradeMapper">
+		update grade set gname=#{gName} where gid=#{gId}
+	</select>
+	<select id="rdata" parameterType="com.jira.po.Grade" resultMap="gradeMapper">
+		update grade set gstate=1 where gid=#{gId}
+	</select>
+	<select id="insert" parameterType="com.jira.po.Grade" resultMap="gradeMapper">
+		insert into grade(gname,gstate,gdate) values(#{gName},#{gState},#{gDate})
+	</select>
+	<select id="isExit" parameterType="com.jira.po.Grade" resultMap="gradeMapper">
+		select * from grade where gname=#{gName}
+	</select>
+	<select id="getOne" parameterType="com.jira.po.Grade" resultMap="gradeMapper">
+		select * from grade where gid=#{gId}
+	</select>
+	<select id="getLimitGrade" parameterType="com.jira.po.Grade"
+		resultMap="gradeMapper">
+		select * from grade
+		<where>
+			<if test="gState!=0">
+				gstate=#{gState}
+			</if>
+			<if test="gName!=null">
+				and gname=#{gName}
+			</if>
+		</where>
+		order by gdate desc,gid desc limit #{limita},#{limitb}
+	</select>
+	<select id="total" parameterType="com.jira.po.Grade"
+		resultMap="gradeMapper">
+		select * from grade
+		<where>
+			<if test="gState!=0">
+				gstate=#{gState}
+			</if>
+			<if test="gName!=null">
+				and gname=#{gName}
+			</if>
+		</where>
+	</select>
+</mapper>

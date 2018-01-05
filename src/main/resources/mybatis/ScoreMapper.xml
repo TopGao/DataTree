@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jira.dao.ScoreMapper">
+	<resultMap id="scoreMapper" type="com.jira.po.Score">
+		<id property="scId" column="scid" />
+		<result property="subjectName" column="subjectname" />
+		<result property="marks" column="marks" />
+		<result property="marksYear" column="marksyear" />
+		<result property="turn" column="turn" />
+		<result property="scState" column="scstate" />
+		<result property="sId" column="sid" />
+		<result property="gId" column="gid" />
+		<result property="gName" column="gname" />
+		<result property="cId" column="cid" />
+		<result property="cName" column="cname" />
+		<result property="sNo" column="sno" />
+		<result property="sName" column="sname" />
+		<result property="sex" column="sex" />
+		<result property="sPhone" column="sphone" />
+		<result property="place" column="place" />
+		<result property="entryTime" column="entrytime" />
+		<result property="leaveTime" column="leavetime" />
+		<result property="stuState" column="stustate" />
+	</resultMap>
+	<resultMap id="noScoreMapper" type="com.jira.po.Score">
+		<result property="sNo" column="sno" />
+		<result property="marksYear" column="marksyear" />
+		<result property="turn" column="turn" />
+		<result property="scState" column="scstate" />
+		<result property="gId" column="gid" />
+		<result property="gName" column="gname" />
+		<result property="cId" column="cid" />
+		<result property="cName" column="cname" />
+		<result property="sId" column="sid" />
+		<result property="sName" column="sname" />
+		<result property="sex" column="sex" />
+		<result property="sPhone" column="sphone" />
+		<result property="place" column="place" />
+		<result property="entryTime" column="entrytime" />
+		<result property="leaveTime" column="leavetime" />
+		<result property="stuState" column="stustate" />
+	</resultMap>
+	<resultMap id="getTime" type="com.jira.po.Score">
+		<result property="sNo" column="sno" />
+		<result property="marksYear" column="marksyear" />
+		<result property="scState" column="scstate" />
+	</resultMap>
+	<select id="getTimeBySno" parameterType="com.jira.po.Score" resultMap="getTime">
+		select marksyear from score where sno=#{sNo} and scstate=#{scState}
+	</select>
+	<select id="ifExit" parameterType="com.jira.po.Score" resultMap="scoreMapper">
+		select sc.scid,sc.subjectname,sc.marks,g.gname,c.cname,s.* from
+		studentinfo s left join class c on
+		s.cid=c.cid left join grade g on
+		s.gid=g.gid right join score sc on s.sno=sc.sno
+		where s.sno=#{sNo}
+	</select>
+	<select id="deletScore" parameterType="com.jira.po.Score"
+		resultMap="scoreMapper">
+		update score set scstate=2 where sno=#{sNo}
+	</select>
+	<select id="deletScoreByScid" parameterType="com.jira.po.Score"
+		resultMap="scoreMapper">
+		update score set scstate=2 where scid=#{scId}
+	</select>
+	<select id="delet" parameterType="com.jira.po.Score" resultMap="scoreMapper">
+		update score set scstate=2
+		<where>
+			<if test="gId!=0">
+				gid=#{gId}
+			</if>
+			<if test="cId!=0">
+				and cid=#{cId}
+			</if>
+			<if test="sNo!=null">
+				and sno=#{sNo}
+			</if>
+			<if test="scId!=0">
+				and scid=#{scId}
+			</if>
+		</where>
+	</select>
+	<select id="rdata" parameterType="com.jira.po.Score" resultMap="scoreMapper">
+		update score set scstate=1
+		<where>
+			<if test="gId!=0">
+				gid=#{gId}
+			</if>
+			<if test="cId!=0">
+				and cid=#{cId}
+			</if>
+			<if test="sNo!=null">
+				and sno=#{sNo}
+			</if>
+			<if test="scId!=0">
+				and scid=#{scId}
+			</if>
+		</where>
+	</select>
+	<select id="updateScore" parameterType="com.jira.po.Score"
+		resultMap="scoreMapper">
+		update score set marks=#{marks} where scid=#{scId}
+	</select>
+	<select id="updateBySno" parameterType="com.jira.po.Score"
+		resultMap="scoreMapper">
+		update score set sno=#{usNo} where sno=#{sNo}
+	</select>
+	<select id="addScore" parameterType="com.jira.po.Score"
+		resultMap="scoreMapper">
+		insert into
+		score(gid,cid,sno,subjectname,marks,marksyear,turn,scstate)
+		values(#{gId},#{cId},#{sNo},#{subjectName},#{marks},#{marksYear},#{turn},1)
+	</select>
+	<select id="canAdd" parameterType="com.jira.po.Score"
+		resultMap="scoreMapper">
+		select * from score where sno=#{sNo} and marksyear=#{marksYear} and turn=#{turn}
+	</select>
+	<select id="getOneScoreInfo" parameterType="com.jira.po.Score"
+		resultMap="scoreMapper">
+		select sc.scid,sc.subjectname,sc.marks,sc.marksyear,sc.turn,g.gname,c.cname,s.*
+		from
+		studentinfo s left join class c on
+		s.cid=c.cid left join grade g on
+		s.gid=g.gid right join score sc on s.sno=sc.sno where scid=#{scId}
+	</select>
+	<select id="num" resultType="java.lang.Integer">
+		SELECT ROW_COUNT()
+	</select>
+	<select id="getScoreInfo" parameterType="com.jira.po.Score"
+		resultMap="scoreMapper">
+		select
+		sc.scid,sc.subjectname,sc.marks,sc.marksyear,sc.turn,sc.scstate,g.gname,c.cname,s.*
+		from
+		studentinfo s left join class c on
+		s.cid=c.cid left join grade g on
+		s.gid=g.gid right join score sc on s.sno=sc.sno
+		<where>
+			<if test="gId!=0">
+				and s.gid=#{gId}
+			</if>
+			<if test="cId!=0">
+				and s.cid=#{cId}
+			</if>
+			<if test="subjectName!=null">
+				and subjectname=#{subjectName}
+			</if>
+			<if test="sNo!=null">
+				and s.sno=#{sNo}
+			</if>
+			<if test="minMarks!=0">
+				and marks>=#{minMarks}
+			</if>
+			<if test="maxMarks!=0">
+				and marks<![CDATA[ <= ]]>#{maxMarks}
+			</if>
+			<if test="scState!=0">
+				and scstate=#{scState}
+			</if>
+		</where>
+		order by scid desc limit #{limita},#{limitb}
+	</select>
+	<select id="totalScore" parameterType="com.jira.po.Score"
+		resultMap="scoreMapper">
+		select
+		sc.scid,sc.subjectname,sc.marks,g.gname,sc.marksyear,sc.turn,sc.scstate,c.cname,s.*
+		from
+		studentinfo s left join class c on
+		s.cid=c.cid left join grade g on
+		s.gid=g.gid right join score sc on s.sno=sc.sno
+		<where>
+			<if test="gId!=0">
+				and s.gid=#{gId}
+			</if>
+			<if test="cId!=0">
+				and s.cid=#{cId}
+			</if>
+			<if test="subjectName!=null">
+				and subjectname=#{subjectName}
+			</if>
+			<if test="sNo!=null">
+				and s.sno=#{sNo}
+			</if>
+			<if test="minMarks!=0">
+				and marks>=#{minMarks}
+			</if>
+			<if test="maxMarks!=0">
+				and marks<![CDATA[ <= ]]>#{maxMarks}
+			</if>
+			<if test="scState!=0">
+				and scstate=#{scState}
+			</if>
+		</where>
+	</select>
+	<select id="getNoScoreInfo" parameterType="com.jira.po.Score"
+		resultMap="noScoreMapper">
+		select g.gname,c.cname,s.* from
+		studentinfo s left join class c on
+		s.cid=c.cid left join grade g on
+		s.gid=g.gid left join score sc on
+		s.sno=sc.sno
+		where s.sno not in (select distinct sno from score where subjectname=#{subjectName} and marksyear>=#{marksYear} and turn=#{turn} )
+		<if test="gId!=0">
+				and s.gid=#{gId}
+			</if>
+			<if test="cId!=0">
+				and s.cid=#{cId}
+			</if>
+			<if test="sNo!=null">
+				and s.sno=#{sNo}
+			</if>
+			<!-- <if test="scState!=0">
+				and scstate=#{scState}
+			</if> -->
+		order by gid limit #{limita},#{limitb}
+	</select>
+	<select id="totalNoScore" parameterType="com.jira.po.Score"
+		resultMap="noScoreMapper">
+		select g.gname,c.cname,s.* from
+		studentinfo s left join class c on
+		s.cid=c.cid left join grade g on
+		s.gid=g.gid left join score sc on
+		s.sno=sc.sno
+		where s.sno not in (select distinct sno from score where subjectname=#{subjectName} and marksyear>=#{marksYear} and turn=#{turn} )
+		<if test="gId!=0">
+				and s.gid=#{gId}
+			</if>
+			<if test="cId!=0">
+				and s.cid=#{cId}
+			</if>
+			<if test="sNo!=null">
+				and s.sno=#{sNo}
+			</if>
+			<if test="scState!=0">
+				and scstate=#{scState}
+			</if>
+	</select>
+</mapper>

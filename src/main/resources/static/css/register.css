@@ -1,0 +1,171 @@
+@CHARSET "UTF-8";
+*{
+	border: 0px;
+	margin: 0px;
+}
+.top{
+	background-color: #6A6EDA;
+	width: 100%;
+	height: 100px;
+	border: 1px solid gray;
+}
+.di{
+	background-color: white;
+	border: 1px solid gray;
+	width: 100%;
+	height: 800px;
+}
+.topleft{
+	position:absolute;
+	top:10px;
+	width: 350px;
+	height: 76px;
+	text-align: center;
+	color: yellow;
+	font-size: 60px ! important;
+	background-color: white;
+	border: 1px solid gray;
+	padding-top: 15px;
+}
+.topright{
+	float:right;
+	border: 1px solid gray;
+	height: 100px;
+	width: 900px;
+}
+a:LINK {
+	color: white;
+	text-decoration: none;
+}
+a:VISITED {
+	color: #CBDE2A;
+}
+a:ACTIVE{
+	color: #2FE4CB;
+	
+}
+a:HOVER {
+	color: #E8D128;
+	border-bottom: 1px solid #E8D128;
+}
+.fleft{
+	float: left;
+	margin-top: 40px;
+	margin-left: 10px;
+	color: #33C8E0;
+	letter-spacing: 2px;
+	font-size: 20px;
+}
+.fright{
+	float:right;
+	margin-top: 40px;
+	margin-right: 20px;
+	color: #E0DADA;
+}
+a{
+	font-size: 20px;
+}
+.fenceng{
+	width: 600px;
+	height: 60px;
+	/* border: 1px solid red; */
+	margin-left: 40px;
+}
+.partleft{
+	float:left;
+	height: 60px;
+	width: 100px;
+	/* border: 1px solid red; */
+	text-align: right;
+}
+.partright{
+	float:left;
+	height: 60px;
+	width: 246px;
+	/* border: 1px solid red; */
+}
+input[type="text"],input[type="password"]{
+	border: 1px solid gray;
+	height: 40px;
+	width: 220px;
+	margin-top: 8px;
+	margin-left: 8px;
+	font-size: 18px;
+}
+.tishi{
+	float: left;
+	text-align: right;
+	margin-top: 20px;
+	font-size: 20px;
+	color: green;
+	margin-left: 24px;
+}
+.text{
+	margin-top: 17px;
+}
+.sex{
+	margin-top: 20px;
+	margin-left: 10px;
+}
+.controlborder{
+	width: 100px;
+	height: 32px;
+	/* border: 1px solid red; */
+	float: left;
+	margin-left: 16px;
+}
+.female{
+	position: absolute;
+	top:145px;
+	left: 260px;
+}
+.fa-female{
+	font-size: 20px ! important;	
+}
+.fa-male{
+	font-size: 20px ! important;	
+}
+.male{
+	position: absolute;
+	top:145px;
+	left: 150px;
+}
+.choseid{
+	margin-top:11px;
+	width: 150px;
+	height: 30px;
+	margin-left: 5px;
+}
+input[name="yanzheng"] {
+	width: 100px;
+	text-align: center;
+}
+input[name="picture"] {
+	width: 100px;
+	text-align: center;
+}
+input[type="button"]{
+	margin-top: 8px;
+	margin-left: 10px;
+	width: 200px;
+	height: 40px;
+	font-size: 18px;
+	color: white;
+	background-color: green;
+}
+.messagelocation{
+	width: 200px;
+	/* border: 1px solid red; */
+	/* height: 100px; */
+	margin-left: 340px;
+}
+.message{
+	position: relative;
+	top: 15px;
+}
+.red{
+	color: red;
+}
+.blue{
+	color:blue;
+}

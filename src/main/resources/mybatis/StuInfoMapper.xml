@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jira.dao.StuInfoMapper">
+	<resultMap id="stuInfoMapper" type="com.jira.po.StuInfo">
+		<id property="sId" column="sid" />
+		<result property="gId" column="gid" />
+		<result property="gName" column="gname" />
+		<result property="cId" column="cid" />
+		<result property="cName" column="cname" />
+		<result property="sNo" column="sno" />
+		<result property="sName" column="sname" />
+		<result property="sex" column="sex" />
+		<result property="sPhone" column="sphone" />
+		<result property="place" column="place" />
+		<result property="entryTime" column="entrytime" />
+		<result property="leaveTime" column="leavetime" />
+		<result property="stuState" column="stustate" />
+	</resultMap>
+	<select id="getStu" parameterType="com.jira.po.StuInfo"
+		resultMap="stuInfoMapper">
+		<!-- reg_time <![CDATA[ <= ]]> #{params.endTime} -->
+		select
+		g.gname,c.cname,s.* from
+		studentinfo s left join class c on s.cid=c.cid left join grade g on
+		s.gid=g.gid 
+		<where>
+			<if test="gId!=0">
+				s.gid=#{gId}
+			</if>
+			<if test="cName!=null">
+				and cname=#{cName}
+			</if>
+			<if test="sNo!=null">
+				and sno=#{sNo}
+			</if>
+			<if test="place!=null">
+				and place like "%"#{place}"%"
+			</if>
+			<if test="entryTime!=null">
+				and entrytime &gt;= #{entryTime}
+			</if>
+			<if test="endEntryTime!=null">
+				and entrytime <![CDATA[ <= ]]> #{endEntryTime}
+			</if>
+			<if test="leaveTime!=null">
+				and leavetime <![CDATA[ <= ]]> #{leaveTime}
+			</if>
+			<if test="stuState!=0">
+				and stustate=#{stuState}
+			</if>
+		</where>
+		order by sid desc limit #{currentPage},#{pageCount}
+	</select>
+	<select id="total" parameterType="com.jira.po.StuInfo"
+		resultMap="stuInfoMapper">
+		select
+		g.gname,c.cname,s.* from
+		studentinfo s left join class c on s.cid=c.cid left join grade g on
+		s.gid=g.gid
+		<where>
+			<if test="gId!=0">
+				s.gid=#{gId}
+			</if>
+			<if test="cName!=null">
+				and cname=#{cName}
+			</if>
+			<if test="sNo!=null">
+				and sno=#{sNo}
+			</if>
+			<if test="place!=null">
+				and place like "%"#{place}"%"
+			</if>
+			<if test="entryTime!=null">
+				and entrytime>=#{entryTime}
+			</if>
+			<if test="endEntryTime!=null">
+				and entrytime <![CDATA[ <= ]]> #{endEntryTime}
+			</if>
+			<if test="leaveTime!=null">
+				and leavetime <![CDATA[ <= ]]> #{leaveTime}
+			</if>
+			<if test="stuState!=0">
+				and stustate=#{stuState}
+			</if>
+		</where>
+	</select>
+	<select id="deletStuIf" parameterType="com.jira.po.StuInfo"
+		resultMap="stuInfoMapper">
+		update studentinfo set stustate=2 where sid=#{sId}
+	</select>
+	<select id="delet" parameterType="com.jira.po.StuInfo"
+		resultMap="stuInfoMapper">
+		update studentinfo set stustate=2
+		<where>
+			<if test="gId!=0">
+				gid=#{gId}
+			</if>
+			<if test="cId!=0">
+				and cid=#{cId}
+			</if>
+			<if test="sId!=0">
+				and sid=#{sId}
+			</if>
+		</where>
+	</select>
+	<select id="rdata" parameterType="com.jira.po.StuInfo"
+		resultMap="stuInfoMapper">
+		update studentinfo set stustate=1
+		<where>
+			<if test="gId!=0">
+				gid=#{gId}
+			</if>
+			<if test="cId!=0">
+				and cid=#{cId}
+			</if>
+			<if test="sId!=0">
+				and sid=#{sId}
+			</if>
+		</where>
+	</select>
+	<select id="num" resultType="java.lang.Integer">
+		SELECT ROW_COUNT()
+	</select>
+	<select id="getOneStu" parameterType="com.jira.po.StuInfo"
+		resultMap="stuInfoMapper">
+		select
+		g.gname,c.cname,s.* from
+		studentinfo s left join class c on s.cid=c.cid left join grade g on
+		s.gid=g.gid where s.sid=#{sId}
+	</select>
+	<select id="getListStu" parameterType="com.jira.po.StuInfo"
+		resultMap="stuInfoMapper">
+		select
+		g.gname,c.cname,s.* from
+		studentinfo s left join class c on s.cid=c.cid left join grade g on
+		s.gid=g.gid
+		<where>
+			<if test="gId!=0">
+				s.gid=#{gId}
+			</if>
+			<if test="cId!=0">
+				and s.cid=#{cId}
+			</if>
+		</where>
+	</select>
+	<select id="updateStu" parameterType="com.jira.po.StuInfo"
+		resultMap="stuInfoMapper">
+		update studentinfo set gid=#{gId},cid=#{cId},sname=#{sName},sex=#{sex},sphone=#{sPhone},place=#{place},entrytime=#{entryTime},leavetime=#{leaveTime} where sid=#{sId}
+	</select>
+	<select id="addStu" parameterType="com.jira.po.StuInfo"
+		resultMap="stuInfoMapper">
+		insert into studentinfo(gid,cid,sno,sname,sex,sphone,place,entrytime,leavetime,stustate) values(#{gId},#{cId},#{sNo},#{sName},#{sex},#{sPhone},#{place},#{entryTime},#{leaveTime},1);
+	</select>
+	<select id="getOneStuBySno" parameterType="com.jira.po.StuInfo"
+		resultMap="stuInfoMapper">
+		select * from studentinfo where sno=#{sNo}
+	</select>
+</mapper>

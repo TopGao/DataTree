@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta name="renderer" content="webkit|ie-comp|ie-stand" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<title>成绩信息</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/pagination.css}"
+	media="screen">
+<link rel="stylesheet" th:href="@{/css/alert.css}" />
+<!-- 添加 -->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/font-awesome-4.6.3/css/font-awesome.min.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/css/checkone.css}">
+<link rel="stylesheet" th:href="@{/css/score.css}" />
+<script type="text/javascript" th:src="@{/js/jquery-1.9.0.js}"></script>
+<script type="text/javascript" th:src="@{/jedate/jedate.js}"></script>
+<script type="text/javascript" th:src="@{/js/jbutton.js}"></script>
+<script type="text/javascript" th:src="@{/js/score.js}"></script>
+<script type="text/javascript" th:src="@{/js/plugs.js}"></script>
+<script type="text/javascript" th:src="@{/js/Paging.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.pagination.js}"></script>
+<script type="text/javascript" th:inline="javascript">
+	/*<![CDATA[*/
+		$(document).ready(function() {
+			$("input[value='成绩查询']").click();
+		});
+	/*]]>*/
+</script>
+</head>
+<body>
+	<div class="choseSubject">
+		请选择学科<select id="addsubjectname" class="select" onchange="searchno(1)">
+			<option value="请选择学科">--请选择学科--</option>
+			<option value="高数">高数</option>
+			<option value="大物">大物</option>
+		</select>
+	</div>
+	<!-- 更新成绩信息 -->
+	<div class="mask"></div>
+	<div class="update">
+		<input type="hidden" name="uscid" value="">
+		<div class="fenceng">
+			<div class="uerror"></div>
+		</div>
+		<div class="fenceng">
+			<div class="utext">年份</div>
+			<div class="ucontext">
+				<input type="text" class="inputtext" name="uyear" value=""
+					readonly="readonly">
+			</div>
+			<div class="uerror red"></div>
+		</div>
+		<div class="fenceng">
+			<div class="utext">学期</div>
+			<div class="ucontext">
+				<input type="text" class="inputtext" name="uturn" value=""
+					readonly="readonly">
+			</div>
+			<div class="uerror red"></div>
+		</div>
+		<div class="fenceng">
+			<div class="utext">学号</div>
+			<div class="ucontext">
+				<input type="text" class="inputtext" name="usno" value=""
+					readonly="readonly">
+			</div>
+			<div class="uerror red usno"></div>
+		</div>
+		<div class="fenceng">
+			<div class="utext">姓名</div>
+			<div class="ucontext">
+				<input type="text" class="inputtext" name="uname" value=""
+					readonly="readonly">
+			</div>
+			<div class="uerror red uname"></div>
+		</div>
+		<div class="fenceng">
+			<div class="utext usubjectname"></div>
+			<div class="ucontext">
+				<input type="text" maxlength="3" class="inputtext" name="umarks"
+					value="">
+			</div>
+			<div class="uerror red umarks">*可修改</div>
+		</div>
+		<div class="fenceng">
+			<div class="utext"></div>
+			<div class="ubutton">
+				<!-- 更新 -->
+				<input type="button" class="button" value="更新" onclick="update()">
+				<!-- 取消 -->
+				<input id="cancle2" class="button" type="button" value="取消">
+			</div>
+			<div class="uerror red"></div>
+		</div>
+	</div>
+
+	<!--添加div -->
+	<!-- <div class="mask"></div> -->
+	<div class="mask1"></div>
+	<div class="add">
+		<input type="hidden" name="agid" value=""> <input
+			type="hidden" name="acid" value="">
+		<div class="fenceng">
+			<div class="uerror"></div>
+		</div>
+		<div class="fenceng">
+			<div class="utext">年份</div>
+			<div class="ucontext">
+				<input type="text" class="inputtext" name="ayear" value=""
+					readonly="readonly">
+			</div>
+			<div class="uerror red"></div>
+		</div>
+		<div class="fenceng">
+			<div class="utext">学期</div>
+			<div class="ucontext">
+				<input type="text" class="inputtext" name="aturn" value=""
+					readonly="readonly">
+			</div>
+			<div class="uerror red"></div>
+		</div>
+		<div class="fenceng">
+			<div class="utext">学号</div>
+			<div class="ucontext">
+				<input type="text" class="inputtext" name="asno" value=""
+					readonly="readonly">
+			</div>
+			<div class="uerror red asnomessage"></div>
+		</div>
+		<div class="fenceng">
+			<div class="utext">姓名</div>
+			<div class="ucontext">
+				<input type="text" class="inputtext" name="aname" value=""
+					readonly="readonly">
+			</div>
+			<div class="uerror red anamemessage"></div>
+		</div>
+		<div class="fenceng">
+			<div class="utext sname"></div>
+			<div class="ucontext">
+				<input type="text" class="inputtext" name="ascore" maxlength="3"
+					value="">
+			</div>
+			<div class="uerror red ascore"></div>
+		</div>
+		<div class="fenceng">
+			<div class="utext"></div>
+			<div class="ubutton">
+				<input id="add2" class="button" type="button" value="添加"
+					onclick="addScore()">
+				<!-- onclick="add()" -->
+				<input id="cancle1" class="button" type="button" value="取消">
+			</div>
+			<div class="uerror red"></div>
+		</div>
+	</div>
+
+
+	<!-- 初始化加载显示 -->
+	<div class="location">
+		<div class="text">年级：</div>
+		<div class="context">
+			<select id="gradename" class="select" onchange="getcname()">
+				<option value="请选择年级">--请选择年级--</option>
+				<option th:each="g:${glist}" th:value="${g.gId}"
+					th:text="${g.gName}"></option>
+			</select>
+		</div>
+		<div class="text">班级:</div>
+		<div class="context">
+			<select id="classname" class="select">
+				<option value='请选择班级'>--请选择班级--</option>
+				<!-- <option value="请选择班级">--请选择班级--</option>
+				<option th:each="c:${clist}" th:value="${c.cName}"
+					th:text="${c.cName}"></option> -->
+			</select>
+		</div>
+		<div class="text">学科:</div>
+		<div class="context">
+			<select id="subjectname" class="select">
+				<option value="请选择学科">--请选择学科--</option>
+				<option value="高数">高数</option>
+				<option value="大物">大物</option>
+			</select>
+		</div>
+		<div class="text">学号:</div>
+		<div class="context">
+			<input type="text" class="inputtext" maxlength="8" name="sno"
+				value="">
+		</div>
+		<div class="text">最小分数:</div>
+		<div class="context">
+			<input type="text" id="grade" maxlength="3" class="inputtext"
+				name="score" value="">
+		</div>
+		<div class="text">最大分数:</div>
+		<div class="context">
+			<input type="text" id="grade1" maxlength="3" class="inputtext"
+				name="score1" value="">
+		</div>
+		<div class="text"></div>
+		<div class="text">显示可用信息</div>
+		<div class="context">
+			<select id="scstate" class="select">
+				<option value="0">--请选择--</option>
+				<option value="1">是</option>
+				<option value="2">否</option>
+			</select>
+		</div>
+		<div class="context">
+			<input type="button" class="button" value="成绩查询" onclick="search(1)">
+		</div>
+		<div class="text"></div>
+		<div class="context">
+			<input type="button" class="button" value="添加成绩"
+				onclick="chose()">
+		</div>
+		<div class="text"></div>
+		<div class="context">
+			<input type="button" class="button" id="rback" value="重置">
+		</div>
+	</div>
+	<div class="showStatement">
+		<input type="hidden" name="current" value="">
+		<div class="record"></div>
+		<table>
+			<thead id="body">
+			</thead>
+			<tbody id="message">
+			</tbody>
+		</table>
+	</div>
+	<div class="M-box page"></div>
+</body>
+</html>

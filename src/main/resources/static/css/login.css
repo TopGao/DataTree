@@ -1,0 +1,143 @@
+@CHARSET "UTF-8";
+*{
+	border: 0px;
+	margin: 0px;
+}
+
+.left{
+	width: 350px;
+	height: 800px;
+	float:left;
+	/* border: 1px solid gray; */
+	position: absolute;
+	left: 300px;
+}
+.tishi{
+	position: absolute;
+	top: 190px;
+	left: -120px;
+	/* border: 1px solid red; */
+	color: red;
+}
+.right{
+	width:980px;
+	height: 800px;
+	float:left;
+	border: 1px solid gray;
+}
+.logo{
+	float:left;
+	width: 350px;
+	text-align: center;
+	height: 150px;
+	/* border: 1px solid red; */
+}
+.fa-wechat{
+	margin-top:10px;
+	color: #6DD836;
+	font-size: 120px ! important;
+}
+.fa-user{
+	font-size: 30px ! important;
+}
+.fa-lock{
+	font-size: 30px ! important;
+}
+input[type="text"],input[type="password"]{
+	width: 250px;
+	height: 60px;
+	border: 1px solid gray;
+	margin-top: 10px;
+	text-align: center;
+	font-size: 20px;
+}
+input[type="text"],input[type="password"]:HOVER{
+	border: 1px solid red;
+}
+.gogo:HOVER > .control{
+	background-color: white;
+}
+input[type="text"],input[type="password"]:ACTIVE{
+	border: 1px solid gary;
+}
+input[name="login"]{
+	width: 250px;
+	height: 60px;
+	margin-top: 10px;
+	text-align: center;
+	font-size: 30px;
+	word-spacing: 5px;
+	color:#DEDDDD;
+	background-color: #6C6CF1;
+	letter-spacing: 25px;
+}
+input[type="button"]:ACTIVE{
+	border: 2px solid #FF9AEE;
+}
+input[type="button"]:HOVER{
+	border: 2px solid #FF9AEE;
+}
+input[name="register"]{
+	width: 250px;
+	height: 60px;
+	margin-top: 10px;
+	text-align: center;
+	font-size: 30px;
+	word-spacing: 5px;
+	color:#DEDDDD;
+	background-color: #2C9E2C;
+	letter-spacing: 25px;
+}
+.fleft{
+	float: left;
+	margin-top: 20px;
+	margin-left: 10px;
+}
+.fleft input[type="checkbox"]{
+	width: 15px;
+	height: 15px;
+	border: 2px solid gray;
+	border-radius:0px;
+	background-color: white;
+}
+.fright{
+	float: right;
+	margin-top: 20px;
+	color: #148BF1;
+	margin-right: 15px;
+}
+.control{
+	float:left;
+	margin-top: 25px;
+	margin-left: 5px;
+}
+.gogo{
+	width: 300px;
+	height: 80px;
+	float: left;
+	/* border: 1px solid red; */
+	margin-left: 25px;
+	text-align: center;
+}
+.reduce{
+	height: 50px;
+}
+.fa-caret-right{
+	color: #DEDDDD;
+	font-size: 30px ! important;
+	position: absolute;
+	left: 220px;
+	top:495px;
+}
+.right{
+	background-image: url("../image/login.jpg");
+}
+.textlocation{
+	text-align: left;
+}
+.red{
+	color:red;
+}
+.black{
+	color: black;
+}

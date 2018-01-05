@@ -1,0 +1,68 @@
+@CHARSET "UTF-8";
+.mask {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	background-color: #333;
+	opacity: 0.7;
+}
+.update{
+	border: 1px solid gray;
+	height: 420px;
+	width: 460px;
+	position: absolute;
+	left: 50%;
+	margin: 0px 0px 0px -190px;
+	background-color: white;
+}
+.add{
+	border: 1px solid gray;
+	height: 420px;
+	width: 460px;
+	background-color: rgba(229, 244, 3, 0.49);
+	display: none;
+	position: absolute;
+	left: 940px;
+	top: 80px;
+	/* z-index:400; */
+}
+.fenceng{
+	/* border: 1px solid red; */
+	width: 470px;
+	height:40px;
+	float: left;
+}
+.display{
+	
+}
+.utext{
+	height:40px;
+	width: 100px;
+	/* border: 1px solid red; */
+	float: left;
+	font-size: 20px;
+	text-align: right;
+	margin-right: 3px;
+}
+.ucontext{
+	height:40px;
+	width: 150px;
+	/* border: 1px solid red; */
+	float: left;
+}
+.ubutton{
+	height:40px;
+	width: 200px;
+	float: left;
+}
+.uerror{
+	height:40px;
+	width: 140px;
+	/* border: 1px solid red; */
+	float: left;
+}
+.red{
+	color: red;
+}

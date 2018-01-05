@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jira.dao.ClassMapper">
+	<resultMap id="classMapper" type="com.jira.po.ClassInfo">
+		<id property="cId" column="cid" />
+		<result property="cName" column="cname" />
+		<result property="cState" column="cstate" />
+		<result property="cDate" column="cdate" />
+		<result property="gId" column="gid" />
+		<result property="gName" column="gname" />
+		<result property="gState" column="gstate" />
+		<result property="gDate" column="gdate" />
+	</resultMap>
+	<select id="getClassInfo" parameterType="com.jira.po.ClassInfo"
+		resultMap="classMapper">
+		select cid,cname from class where gid=#{gId} order by cname
+	</select>
+	<select id="getClassInfoByState" parameterType="com.jira.po.ClassInfo"
+		resultMap="classMapper">
+		select cid,cname from class
+		<where>
+			<if test="gId!=0">
+				gid=#{gId}
+			</if>
+			<if test="cState!=0">
+				and cstate=#{cState}
+			</if>
+		</where>
+		order by cname
+	</select>
+	<select id="delet" parameterType="com.jira.po.ClassInfo"
+		resultMap="classMapper">
+		update class set cstate=2
+		<where>
+			<if test="cId!=0">
+				cid=#{cId}
+			</if>
+			<if test="gId!=0">
+				gid=#{gId}
+			</if>
+		</where>
+	</select>
+	<select id="rdata" parameterType="com.jira.po.ClassInfo"
+		resultMap="classMapper">
+		update class set cstate=1
+		<where>
+			<if test="cId!=0">
+				cid=#{cId}
+			</if>
+			<if test="gId!=0">
+				gid=#{gId}
+			</if>
+		</where>
+	</select>
+	<select id="deletByGid" parameterType="com.jira.po.ClassInfo"
+		resultMap="classMapper">
+		update class set cstate=#{cState} where gid=#{gId}
+	</select>
+	<select id="update" parameterType="com.jira.po.ClassInfo"
+		resultMap="classMapper">
+		update class set cname=#{cName},gid=#{gId} where cid=#{cId}
+	</select>
+	<select id="insert" parameterType="com.jira.po.ClassInfo"
+		resultMap="classMapper">
+		insert into class(cname,gid,cstate,cdate)
+		values(#{cName},#{gId},#{cState},#{cDate})
+	</select>
+	<select id="isExit" parameterType="com.jira.po.ClassInfo"
+		resultMap="classMapper">
+		select * from class where cname=#{cName} and gid=#{gId}
+	</select>
+	<select id="getOne" parameterType="com.jira.po.ClassInfo"
+		resultMap="classMapper">
+		select c.*,g.gname from class c left join grade g on c.gid=g.gid where cid=#{cId}
+	</select>
+	<select id="getLimitClass" parameterType="com.jira.po.ClassInfo"
+		resultMap="classMapper">
+		select c.*,g.gname from class c left join grade g on c.gid=g.gid
+		<where>
+			<if test="cState!=0">
+				cstate=#{cState}
+			</if>
+			<if test="cName!=null">
+				and cname=#{cName}
+			</if>
+			<if test="gId!=0">
+				and c.gid=#{gId}
+			</if>
+		</where>
+		order by cdate desc,cid desc limit #{limita},#{limitb}
+	</select>
+	<select id="total" parameterType="com.jira.po.ClassInfo"
+		resultMap="classMapper">
+		select c.*,g.gname from class c left join grade g on c.gid=g.gid
+		<where>
+			<if test="cState!=0">
+				cstate=#{cState}
+			</if>
+			<if test="cName!=null">
+				cname=#{cName}
+			</if>
+			<if test="gId!=0">
+				and c.gid=#{gId}
+			</if>
+		</where>
+	</select>
+</mapper>

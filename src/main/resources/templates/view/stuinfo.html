@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta name="renderer" content="webkit|ie-comp|ie-stand" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<title>学生信息</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/pagination.css}"
+	media="screen">
+<link rel="stylesheet" th:href="@{/css/alert.css}" />
+<!-- 添加 -->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/font-awesome-4.6.3/css/font-awesome.min.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/css/checkone.css}">
+<link rel="stylesheet" th:href="@{/css/stu.css}" />
+<script type="text/javascript" th:src="@{/js/jquery-1.9.0.js}"></script>
+<script type="text/javascript" th:src="@{/jedate/jedate.js}"></script>
+<script type="text/javascript" th:src="@{/js/jbutton.js}"></script>
+<script type="text/javascript" th:src="@{/js/stu.js}"></script>
+<script type="text/javascript" th:src="@{/js/plugs.js}"></script>
+<script type="text/javascript" th:src="@{/js/Paging.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.pagination.js}"></script>
+<script type="text/javascript" th:inline="javascript">
+	/*<![CDATA[*/
+		$(document).ready(function() {
+			$("input[value='查询']").click();
+		});
+	/*]]>*/
+</script>
+</head>
+<body>
+	<!-- update -->
+	<div class="mask"></div>
+	<div class="update">
+		<input type="hidden" name="usid" value="">
+		<div class="fenceng">
+			<div class="uerror"></div>
+		</div>
+		<div class="fenceng">
+			<div class="utext">年级</div>
+			<div class="ucontext">
+				<select id="ugradename" class="select" onchange="ugetcname()">
+					<option value="请选择年级">--请选择年级--</option>
+					<option th:each="g:${glist}" th:value="${g.gId}"
+						th:text="${g.gName}"></option>
+				</select>
+			</div>
+			<div class="uerror red ugradename"></div>
+		</div>
+		<div class="fenceng">
+			<div class="utext">班级</div>
+			<div class="ucontext">
+				<select id="uclassname" class="select">
+					<option value='请选择班级'>--请选择班级--</option>
+				</select>
+			</div>
+			<div class="uerror red uclassmessage"></div>
+		</div>
+		<div class="fenceng">
+			<div class="utext">学号</div>
+			<div class="ucontext">
+				<input type="text" maxlength="8" class="inputtext" name="usno" value="" readonly="readonly">
+			</div>
+			<div class="uerror red usno"></div>
+		</div>
+		<div class="fenceng">
+			<div class="utext">姓名</div>
+			<div class="ucontext">
+				<input type="text" class="inputtext" name="uname" value="">
+			</div>
+			<div class="uerror red unamemessage"></div>
+		</div>
+		<div class="fenceng">
+			<div class="utext">性别</div>
+			<div class="ucontext">
+				<i>男</i><input id="uman" type="radio" class="radio" name="sex1"
+					value="0"><i>女</i><input id="uw" type="radio" class="radio"
+					name="sex1" value="1">
+			</div>
+			<div class="uerror red usexmessage"></div>
+		</div>
+		<div class="fenceng">
+			<div class="utext">电话</div>
+			<div class="ucontext">
+				<input type="text" maxlength="11" class="inputtext" name="uphone"
+					value="">
+			</div>
+			<div class="uerror red uphonemessage"></div>
+		</div>
+		<div class="fenceng">
+			<div class="utext">家庭住址</div>
+			<div class="ucontext">
+				<input type="text" class="inputtext" name="uplace" value="">
+			</div>
+			<div class="uerror red uplacemessage"></div>
+		</div>
+		<div class="fenceng">
+			<div class="utext">入学时间</div>
+			<div class="ucontext">
+				<input class="datainp inputtext" id="udateinfo" type="text"
+					readonly="readonly">
+			</div>
+			<div class="uerror red utimemessage"></div>
+		</div>
+		<div class="fenceng">
+			<div class="utext">离学时间</div>
+			<div class="ucontext">
+				<input class="datainp inputtext" id="udateinfo1" type="text"
+					readonly="readonly">
+			</div>
+			<div class="uerror red utimemessage1"></div>
+		</div>
+		<div class="fenceng">
+			<div class="utext"></div>
+			<div class="ubutton">
+				<input type="button" class="button" value="更新" onclick="update()"><input
+					id="cancle2" class="button" type="button" value="取消">
+			</div>
+			<div class="uerror red"></div>
+		</div>
+	</div>
+	;
+	<!--添加div -->
+	<!-- <div class="mask"></div> -->
+	<div class="mask1"></div>
+	<div class="add">
+		<div class="fenceng">
+			<div class="uerror"></div>
+		</div>
+		<div class="fenceng">
+			<div class="utext">年级</div>
+			<div class="ucontext">
+				<select id="agradename" class="select" onchange="getcname1()">
+					<option value="请选择年级">--请选择年级--</option>
+					<option th:each="g:${glist}" th:value="${g.gId}"
+						th:text="${g.gName}"></option>
+				</select>
+			</div>
+			<div class="uerror red agradenamemessage"></div>
+		</div>
+		<div class="fenceng">
+			<div class="utext">班级</div>
+			<div class="ucontext">
+				<select id="aclassname" class="select">
+					<option value='请选择班级'>--请选择班级--</option>
+				</select>
+			</div>
+			<div class="uerror red aclassnamemessage"></div>
+		</div>
+		<div class="fenceng">
+			<div class="utext">学号</div>
+			<div class="ucontext">
+				<input type="text" maxlength="8" name="asno" value=""
+					class="inputtext" onchange="same()">
+			</div>
+			<div class="uerror red asnomessage"></div>
+		</div>
+		<div class="fenceng">
+			<div class="utext">姓名</div>
+			<div class="ucontext">
+				<input type="text" name="aname" value="" class="inputtext">
+			</div>
+			<div class="uerror red anamemessage"></div>
+		</div>
+		<div class="fenceng">
+			<div class="utext">性别</div>
+			<div class="ucontext">
+				<i>男</i><input type="radio" id="aman" class="radio" name="sex"
+					value="0" checked="checked"> <i>女</i><input type="radio"
+					id="aw" class="radio" name="sex" value="1">
+			</div>
+			<div class="uerror red asexmessage"></div>
+		</div>
+		<div class="fenceng">
+			<div class="utext">电话</div>
+			<div class="ucontext">
+				<input type="text" maxlength="11" name="aphone" value=""
+					class="inputtext">
+			</div>
+			<div class="uerror red aphone"></div>
+		</div>
+		<div class="fenceng">
+			<div class="utext">家庭住址</div>
+			<div class="ucontext">
+				<input type="text" name="aplace" value="" class="inputtext">
+			</div>
+			<div class="uerror red aplace"></div>
+		</div>
+		<div class="fenceng">
+			<div class="utext">入学时间</div>
+			<div class="ucontext">
+				<input class="datainp inputtext" id="dateinfo" type="text"
+					readonly="readonly">
+			</div>
+			<div class="uerror red atime"></div>
+		</div>
+		<div class="fenceng">
+			<div class="utext">离学时间</div>
+			<div class="ucontext">
+				<input class="datainp inputtext" id="dateinfo1" type="text"
+					readonly="readonly">
+			</div>
+			<div class="uerror red atime1"></div>
+		</div>
+		<div class="fenceng">
+			<div class="utext"></div>
+			<div class="ubutton">
+				<input id="add2" class="button" type="button" value="添加"
+					onclick="add()">
+				<!-- onclick="add()" -->
+				<input id="cancle1" class="button" type="button" value="取消">
+			</div>
+			<div class="uerror red"></div>
+		</div>
+	</div>
+
+
+	<!-- 初始化加载显示 -->
+	<div class="location">
+		<div class="text">年级：</div>
+		<div class="context">
+			<select id="gradename" class="select" onchange="getcname()">
+				<option value="请选择年级">--请选择年级--</option>
+				<option th:each="g:${glist}" th:value="${g.gId}"
+					th:text="${g.gName}"></option>
+			</select>
+		</div>
+		<div class="text">班级:</div>
+		<div class="context">
+			<select id="classname" class="select">
+				<option value='请选择班级'>--请选择班级--</option>
+				<!-- <option value="请选择班级">--请选择班级--</option>
+				<option th:each="c:${clist}" th:value="${c.cName}"
+					th:text="${c.cName}"></option> -->
+			</select>
+		</div>
+		<div class="text">学号:</div>
+		<div class="context">
+			<input type="text" class="inputtext" name="sno" value="">
+		</div>
+		<div class="text">家庭住址:</div>
+		<div class="context">
+			<input type="text" class="inputtext" name="place" value="">
+		</div>
+		
+		<div class="text">入学起始时间:</div>
+		<div class="context">
+			<input class="datainp inputtext" id="time1" type="text"
+				readonly="readonly">
+		</div>
+		<br />
+		<div class="text">入学结束时间:</div>
+		<div class="context">
+			<input class="datainp inputtext" id="time3" type="text"
+				readonly="readonly">
+		</div>
+
+		<div class="text">离校时间:</div>
+		<div class="context">
+			<input class="datainp inputtext" id="time2" type="text"
+				readonly="readonly">
+		</div>
+		<div class="text">显示可用信息</div>
+		<div class="context">
+			<select id="stustate" class="select">
+				<option value="0">--请选择--</option>
+				<option value="1">是</option>
+				<option value="2">否</option>
+			</select>
+		</div>
+		<div class="text"></div>
+		<div class="context">
+			<input type="button" class="button" value="查询" onclick="search(1)">
+		</div>
+		<div class="text"></div>
+		<div class="context">
+			<input type="button" class="button" id="add1" value="添加">
+		</div>
+		<div class="text"></div>
+		<div class="context">
+			<input type="button" class="button" id="rback" value="重置">
+		</div>
+	</div>
+	<div class="showStatement">
+		<input type="hidden" name="current" value="">
+		<div class="record"></div>
+		<table>
+			<thead id="body">
+			</thead>
+			<tbody id="message">
+			</tbody>
+		</table>
+	</div>
+	<div class="M-box page"></div>
+</body>
+<script type="text/javascript" th:inline="javascript">
+	/*<![CDATA[*/
+	jeDate({
+		dateCell : "#dateinfo",
+		format : "YYYY-MM-DD",
+		isinitVal : false,
+		isTime : true, //isClear:false,
+		minDate : "1994-09-19",
+	/* okfun:function(val){alert(val)} */
+	});
+	jeDate({
+		dateCell : "#dateinfo1",
+		format : "YYYY-MM-DD",
+		isinitVal : false,
+		isTime : true, //isClear:false,
+		minDate : "1994-09-19",
+	/* okfun:function(val){alert(val)} */
+	});
+	jeDate({
+		dateCell : "#udateinfo",
+		format : "YYYY-MM-DD",
+		isinitVal : false,
+		isTime : true, //isClear:false,
+		minDate : "1994-09-19",
+	/* okfun:function(val){alert(val)} */
+	});
+	jeDate({
+		dateCell : "#udateinfo1",
+		format : "YYYY-MM-DD",
+		isinitVal : false,
+		isTime : true, //isClear:false,
+		minDate : "1994-09-19",
+	/* okfun:function(val){alert(val)} */
+	});
+	jeDate({
+		dateCell : "#time1",
+		format : "YYYY-MM-DD",
+		isinitVal : false,
+		isTime : true, //isClear:false,
+		minDate : "1994-09-19",
+	/* okfun:function(val){alert(val)} */
+	});
+	jeDate({
+		dateCell : "#time2",
+		format : "YYYY-MM-DD",
+		isinitVal : false,
+		isTime : true, //isClear:false,
+		minDate : "1994-09-19",
+	/* okfun:function(val){alert(val)} */
+	});
+	jeDate({
+		dateCell : "#time3",
+		format : "YYYY-MM-DD",
+		isinitVal : false,
+		isTime : true, //isClear:false,
+		minDate : "1994-09-19",
+	/* okfun:function(val){alert(val)} */
+	});
+	/*]]>*/
+</script>
+</html>
