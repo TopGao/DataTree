@@ -417,8 +417,8 @@ public static void dealChildData(String projectKey,String parentIssueKey,R4JChil
   }
 
 //
-public static void dealData2(String projectKey,JSONObject parentObject,int NewFolderId) throws IOException{
-	
+public static void dealData2(String projectKey,JSONObject parentObject,int newFolderId) throws IOException{
+	System.out.println("NewStart NewFolderId:"+NewFolderId);
 	if(!HistoryIdList.contains(NewFolderId)){		
 		HistoryIdList.add(NewFolderId);
 	}
